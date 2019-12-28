@@ -11,6 +11,7 @@ if(mysqli_num_rows($result))
 {
         echo "登入成功";
         $_SESSION['account'] = $account;
+        $_SESSION['auth'] = $result['auth'];
 }
 else
 {
