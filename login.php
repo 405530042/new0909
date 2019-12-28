@@ -1,28 +1,21 @@
+<?php session_start(); ?>
 <?php
-$host="127.0.0.1";
-$user="root";
-$pasd="";
-$database="login";
-$connect = mysqli_connect($host,$user,$pasd,$database);
-$id = $_POST['id'];
-$pwd = $_POST['pwd'];
+require 'connect.php';
+//include("connect.php");                                               
+$account = $_POST['account'];
+$password = $_POST['password'];
 
-mysqli_query($connect,'set names utf8');
+$sql_query_login="SELECT * FROM user where account='$account' AND password='$password'";
+$result=mysqli_query($connect,$sql_query_login);
+if(mysqli_num_rows($result))
+{
+        echo "登入成功";
+        $_SESSION['account'] = $account;
+}
+else
+{
+        echo"登入失敗";
+}
 
-$result=mysqli_query($connect,"INSERT INTO user (id,pwd) VALUES ('$id','$pwd')");
-
-session_start();                                                  
-$id = $_POST['id'];
-$psw = $_POST['pwd'];                      
-
-if ($id !="admin" or $pwd !="123456")    
-        { 
-         echo $id . "不存在此系統內";
-         exit;
-        }
-
-$_SESSION['id']=$id;                     
-$_SESSION['pwd']=$pwd;              
-echo $_SESSION['id'] . "你好";
 
 ?>
