@@ -5,12 +5,18 @@ require 'connect.php';
 $account = $_POST['account'];
 $password = $_POST['password'];
 
-$sql_query_login="SELECT * FROM user where account='$account' AND password='$password'";
-$result=mysqli_query($connect,$sql_query_login);
-if(mysqli_num_rows($result))
+$sql="SELECT * FROM user where account='$account' AND password='$password'";
+
+$sth = $pdo->prepare($sql);
+$sth->execute(array($account, $password));
+$result = $sth->fetch(PDO::FETCH_OBJ);
+
+//$result=mysqli_query($connect,$sql_query_login);
+if($result)
 {
+        header('todolist.php');
         echo "登入成功";
-        $_SESSION['account'] = $account;
+        $_SESSION['account'] = $result['account'];
         $_SESSION['auth'] = $result['auth'];
 }
 else
