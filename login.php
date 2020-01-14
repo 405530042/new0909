@@ -2,27 +2,25 @@
 <?php
 require 'connect.php';
 //include("connect.php");                                               
-$account = $_POST['account'];
-$password = $_POST['password'];
+$account = (isset($_POST['account']))?$_POST['account']:"";
+$password = (isset($_POST['password']))?$_POST['password']:"";
 
-$sql="SELECT * FROM user where account='$account' AND password='$password'";
+//$sql="SELECT * FROM user where account='$account' AND password='$password'";
+
+$sql="SELECT * FROM user where account LIKE :account AND password LIKE :password";
 
 $sth = $pdo->prepare($sql);
-$sth->execute(array($account, $password));
-$result = $sth->fetch(PDO::FETCH_OBJ);
-
-//$result=mysqli_query($connect,$sql_query_login);
-if($result)
+//$sth->execute(array(':account' => $account, ':password' => $password));
+if($sth->execute(array(':account' => $account, ':password' => $password)))
 {
         header('todolist.php');
-        echo "登入成功";
-        $_SESSION['account'] = $result['account'];
-        $_SESSION['auth'] = $result['auth'];
+        echo "succ";
+        $result = $sth->fetch();
+        printf($result['account']);
 }
 else
 {
-        echo"登入失敗";
+        echo $sth->error;
 }
-
 
 ?>
