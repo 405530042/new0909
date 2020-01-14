@@ -5,7 +5,6 @@ require 'connect.php';
 $account = (isset($_POST['account']))?$_POST['account']:"";
 $password = (isset($_POST['password']))?$_POST['password']:"";
 
-//$sql="SELECT * FROM user where account='$account' AND password='$password'";
 
 $sql="SELECT * FROM user where account LIKE :account AND password LIKE :password";
 
