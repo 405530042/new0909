@@ -1,30 +1,30 @@
 <?php session_start(); ?>
 <?php
+/**第3~10就不用了 直接include connect.php */
+// $host="127.0.0.1";
+// $user="root";
+// $pasd="";
+// $database="todo";
+// $db = mysqli_connect($host,$user,$pasd,$database);
 
-$host="127.0.0.1";
-$user="root";
-$pasd="";
-$database="todo";
-$db = mysqli_connect($host,$user,$pasd,$database);
-
-mysqli_query($db,'set names utf8');
+// mysqli_query($db,'set names utf8');
 
 
 
-    if(isset($_POST['submit'])){
-    $task=$_POST['task'];
+//     if(isset($_POST['submit'])){
+//     $task=$_POST['task'];
 
-    mysqli_query($db,"INSERT INTO tasks (task) VALUES ('$task')");
+//     mysqli_query($db,"INSERT INTO tasks (task) VALUES ('$task')");
     
-    }
+//     }
 
-    if(isset($_GET['del_task'])){
-        $id=$_GET['del_task'];
-        mysqli_query($db,"DELETE FROM tasks WHERE id=$id");
+//     if(isset($_GET['del_task'])){
+//         $id=$_GET['del_task'];
+//         mysqli_query($db,"DELETE FROM tasks WHERE id=$id");
         
-    }
+//     }
 
-    $tasks=mysqli_query($db,"SELECT * FROM tasks");
+//     $tasks=mysqli_query($db,"SELECT * FROM tasks");
 
     /*if(isset($_SESSION))
     {
@@ -66,23 +66,17 @@ mysqli_query($db,'set names utf8');
 
                 <tbody>
                 
-                    <?php  $i=1; while ($row = mysqli_fetch_array($tasks)){ ?>
+                   
                     <tr>
                     
-                        <td class="task"><?php echo $row['task'];?></td>
-                        <td class="delete">
-                            <a href="todolist.php?del_task=<?php echo $row['id'];?>">x </a>
-                            
-                            <a href="#">編輯</a>
-                        </td>
+                       
                         
-                        
-                    </tr>
-                    <?php $i++;  } ?> 
+                    </tr> 
                 </tbody>
             </table>
-        <?php if(isset($_SESSION['auth'])==3)
+        <?php if(isset($_SESSION['auth']))//isset()return的值是true or false所以 ==數字 會false
         {
+            if($_SESSION['auth']==3){
             ?>
             
 
@@ -90,10 +84,11 @@ mysqli_query($db,'set names utf8');
 
             </div>
         <?php
+            }
         } 
         else{
             ?>
-            <a href="">註冊帳號</a></div>
+            <a href="">註冊帳號</a><?php echo $_SESSION['auth'] ?></div>
         
         <?php
         }
