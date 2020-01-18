@@ -26,14 +26,14 @@ mysqli_query($db,'set names utf8');
 
     $tasks=mysqli_query($db,"SELECT * FROM tasks");
 
-    if(isset($_SESSION))
+    /*if(isset($_SESSION))
     {
         $_SESSION['auth']='5';
     }
     else 
     {
         echo "此帳號無權限";
-    }
+    }*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,7 +81,23 @@ mysqli_query($db,'set names utf8');
                     <?php $i++;  } ?> 
                 </tbody>
             </table>
+        <?php if(isset($_SESSION['auth'])==3)
+        {
+            ?>
+            
+
+            <a href="register.php">註冊帳號</a>
+
+            </div>
+        <?php
+        } 
+        else{
+            ?>
+            <a href="">註冊帳號</a></div>
         
+        <?php
+        }
+        ?>
     
     </body>
 </html>
