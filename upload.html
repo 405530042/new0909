@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" >
+</head>
+<body>
+    <form action="upload.php" method="POST" >
+        資料夾名稱:<input type="folder" name="foldernm" id="folder" >
+        活動日期:<input type="date" name="folderdate" >
+        <input type="submit" name="submit1" value="新增資料夾" >
+        </form>
+    
+
+    <form action="upload.php" method="POST" enctype="multipart/form-data">
+    檔案名稱:<input type="file" name="file[]" id="file" multiple>
+    相簿名稱:<input type="folder" name="foldernm2"  >
+    <input type="submit" name="submit2" value="上傳檔案" >
+    </form>
+</body>
+</html>
